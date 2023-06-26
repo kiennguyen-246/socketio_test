@@ -8,9 +8,29 @@
     <div class="container">
         <form action="" id="login-form">
             <input type="text" id="username-input-form" class="form-control" placeholder="Username...">
+            <button class="btn btn-primary" type="submit" onclick="">Submit</button>
         </form>
-        <button class="btn btn-primary" type="submit" onclick="">Submit</button>
+        
     </div>
-    <script type="module" src="./js/login.js"></script>
+    <script src="https://cdn.socket.io/4.6.0/socket.io.min.js" integrity="sha384-c79GN5VsunZvi+Q/WObgk2in0CbZsHnjEqvFxC5DxHn9lTfNce2WW6h2pH6u/kF+" crossorigin="anonymous"></script>
+    <script type="module">
+        // import io from 'socket.io-client'
+
+        let socket = io();
+
+        let loginForm = document.getElementById('login-form')
+
+        export let username = ""
+
+        loginForm.addEventListener("submit", (e) => {
+            e.preventDefault()
+
+            username = document.getElementById("username-input-form").value
+
+            socket.emit('logged in', username)
+
+            location.href = '/chat'
+        })
+    </script>
 </body>
 </html>
